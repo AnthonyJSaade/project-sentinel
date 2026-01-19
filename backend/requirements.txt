@@ -1,0 +1,14 @@
+# Project Sentinel - Backend Dependencies
+# ========================================
+# Python 3.9+ required
+
+# GDELT Data Ingestion
+gdelt>=0.1.14            # Python wrapper for GDELT 2.0 API (PyPI: gdelt)
+pandas>=2.0.0            # DataFrame manipulation for event data
+
+# HTTP & Retry Logic
+requests>=2.31.0         # HTTP client for API calls
+tenacity>=8.2.0          # Retry decorator for network resilience
+
+# JSON Processing
+python-dateutil>=2.8.2   # Date parsing and timezone handling
