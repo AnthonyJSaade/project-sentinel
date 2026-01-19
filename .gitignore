@@ -28,6 +28,9 @@ build/
 data/*.json
 !data/.gitkeep
 
+# Neo4j data (large, not for git)
+neo4j/
+
 # Node (for future frontend)
 node_modules/
 .next/
