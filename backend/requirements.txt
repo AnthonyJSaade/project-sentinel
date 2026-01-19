@@ -10,5 +10,8 @@ pandas>=2.0.0            # DataFrame manipulation for event data
 requests>=2.31.0         # HTTP client for API calls
 tenacity>=8.2.0          # Retry decorator for network resilience
 
+# RSS/News Ingestion
+feedparser>=6.0.0        # RSS/Atom feed parsing
+
 # JSON Processing
 python-dateutil>=2.8.2   # Date parsing and timezone handling
