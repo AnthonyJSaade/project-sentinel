@@ -24,6 +24,10 @@ build/
 .env.local
 *.local
 
+# Telethon session files (sensitive auth data)
+*.session
+*.session-journal
+
 # Data files (exclude large JSON outputs)
 data/*.json
 !data/.gitkeep

@@ -13,5 +13,9 @@ tenacity>=8.2.0          # Retry decorator for network resilience
 # RSS/News Ingestion
 feedparser>=6.0.0        # RSS/Atom feed parsing
 
+# Telegram MTProto (User Client)
+telethon>=1.34.0         # MTProto client for Telegram scraping
+python-dotenv>=1.0.0     # Load .env configuration
+
 # JSON Processing
 python-dateutil>=2.8.2   # Date parsing and timezone handling
