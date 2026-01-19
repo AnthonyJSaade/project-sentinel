@@ -63,12 +63,13 @@ SOURCE_CONFIG: Dict[str, Dict[str, Any]] = {
     # -------------------------------------------------------------------------
     # TIER 1: Wire Services / Primary Sources
     # These are the origin of most breaking news. High reliability, fast.
+    # NOTE: Reuters/AP deprecated their public RSS. Using NPR as reliable alt.
     # -------------------------------------------------------------------------
-    "reuters_world": {
-        "url": "https://feeds.reuters.com/Reuters/worldNews",
+    "npr_world": {
+        "url": "https://feeds.npr.org/1004/rss.xml",
         "tier": 1,
         "type": "Western",
-        "name": "Reuters World News",
+        "name": "NPR World News",
     },
     
     # -------------------------------------------------------------------------
@@ -112,9 +113,10 @@ OUTPUT_DIR = Path(__file__).parent.parent.parent / "data"
 OUTPUT_FILE = OUTPUT_DIR / "news_feed.json"
 
 # HTTP configuration
+# Spoof a real browser User-Agent to avoid aggressive blocking (e.g., Reuters)
 USER_AGENT = (
-    "Mozilla/5.0 (compatible; ProjectSentinel/1.0; "
-    "+https://github.com/project-sentinel)"
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
 )
 REQUEST_TIMEOUT = 15  # seconds
 
