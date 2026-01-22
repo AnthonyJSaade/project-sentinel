@@ -1,4 +1,4 @@
-📂 PROJECT SENTINEL: Master Design Document
+ PROJECT SENTINEL: Master Design Document
 1. The Core Mission
 
 To build a Hybrid Conflict Monitor that visualizes the correlation between Kinetic Events (explosions, troop movements) and Information Reliability (source consensus, denials).
