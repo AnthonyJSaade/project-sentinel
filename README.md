@@ -1,4 +1,4 @@
-# Project Sentinel 🎯
+# Project Sentinel
 
 A geopolitical conflict monitor focused on the Middle East, providing real-time OSINT data visualization and analysis.
 
