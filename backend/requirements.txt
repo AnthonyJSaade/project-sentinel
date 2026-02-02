@@ -20,5 +20,11 @@ python-dotenv>=1.0.0     # Load .env configuration
 # Neo4j Graph Database
 neo4j>=5.15.0            # Official Neo4j Python driver
 
+# LLM / Agentic AI (Multi-Agent Debate)
+langchain>=0.3.0         # LLM orchestration framework
+langchain-anthropic>=0.3.0  # Claude integration
+langgraph>=0.2.0         # Multi-agent graph workflows
+pydantic>=2.0.0          # Structured output validation
+
 # JSON Processing
 python-dateutil>=2.8.2   # Date parsing and timezone handling
