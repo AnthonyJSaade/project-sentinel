@@ -38,6 +38,7 @@ Created: 2026
 
 import json
 import os
+import re
 import sys
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
@@ -85,6 +86,7 @@ LLM_TEMPERATURE = 0.3  # Lower for more consistent structured output
 
 # Processing thresholds
 MIN_HEURISTIC_SCORE = 1  # Only process events with score > 0
+DEBUG_MODE = os.getenv("DEBUG", "false").lower() == "true"
 
 
 # ==============================================================================
@@ -291,6 +293,53 @@ class MockLLM:
 
 
 # ==============================================================================
+# JSON EXTRACTION HELPER
+# ==============================================================================
+
+def extract_json(text: str) -> Dict:
+    """
+    Extract JSON from LLM response, handling markdown code blocks.
+    
+    Claude often wraps JSON in ```json ... ``` blocks. This function
+    handles that and extracts the raw JSON.
+    
+    Args:
+        text: Raw LLM response text
+        
+    Returns:
+        Parsed JSON dict
+        
+    Raises:
+        json.JSONDecodeError: If no valid JSON found
+    """
+    if not text or not text.strip():
+        raise json.JSONDecodeError("Empty response", text or "", 0)
+    
+    # Try direct JSON parse first
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        pass
+    
+    # Try extracting from markdown code block
+    # Pattern: ```json ... ``` or ``` ... ```
+    code_block_pattern = r'```(?:json)?\s*\n?(.*?)\n?```'
+    match = re.search(code_block_pattern, text, re.DOTALL)
+    if match:
+        json_str = match.group(1).strip()
+        return json.loads(json_str)
+    
+    # Try finding JSON object pattern { ... }
+    json_pattern = r'\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}'
+    match = re.search(json_pattern, text, re.DOTALL)
+    if match:
+        return json.loads(match.group(0))
+    
+    # Last resort: raise error with actual content for debugging
+    raise json.JSONDecodeError(f"No JSON found in: {text[:200]}...", text, 0)
+
+
+# ==============================================================================
 # LANGGRAPH NODES (AGENT FUNCTIONS)
 # ==============================================================================
 
@@ -308,9 +357,13 @@ def analyst_pro_node(state: Dict) -> Dict:
     
     try:
         response = llm.invoke([HumanMessage(content=prompt)])
-        pro_argument = json.loads(response.content)
+        if DEBUG_MODE:
+            print(f"      [DEBUG] Pro response: {response.content[:200]}...")
+        pro_argument = extract_json(response.content)
         return {"pro_argument": pro_argument}
     except Exception as e:
+        if DEBUG_MODE:
+            print(f"      [DEBUG] Pro error: {e}")
         return {"pro_argument": {"error": str(e), "key_points": [], "confidence": "Low", "summary": "Analysis failed"}}
 
 
@@ -329,9 +382,13 @@ def analyst_con_node(state: Dict) -> Dict:
     
     try:
         response = llm.invoke([HumanMessage(content=prompt)])
-        con_argument = json.loads(response.content)
+        if DEBUG_MODE:
+            print(f"      [DEBUG] Con response: {response.content[:200]}...")
+        con_argument = extract_json(response.content)
         return {"con_argument": con_argument}
     except Exception as e:
+        if DEBUG_MODE:
+            print(f"      [DEBUG] Con error: {e}")
         return {"con_argument": {"error": str(e), "key_points": [], "confidence": "Low", "summary": "Analysis failed"}}
 
 
@@ -350,12 +407,16 @@ def judge_node(state: Dict) -> Dict:
     
     try:
         response = llm.invoke([HumanMessage(content=prompt)])
-        judgment = json.loads(response.content)
+        if DEBUG_MODE:
+            print(f"      [DEBUG] Judge response: {response.content[:200]}...")
+        judgment = extract_json(response.content)
         
         # Validate with Pydantic
         validated = JudgmentOutput(**judgment)
         return {"judgment": validated.model_dump()}
     except Exception as e:
+        if DEBUG_MODE:
+            print(f"      [DEBUG] Judge error: {e}")
         # Fallback to heuristic score if LLM fails
         heuristic = state.get("heuristic_score", 0)
         status = "Confirmed" if heuristic > 60 else "Plausible" if heuristic > 30 else "Unverified"

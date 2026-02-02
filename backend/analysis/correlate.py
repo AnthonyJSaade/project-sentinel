@@ -41,6 +41,7 @@ Created: 2026
 ==============================================================================
 """
 
+import argparse
 import os
 import sys
 from datetime import datetime, timedelta, timezone
@@ -184,6 +185,34 @@ def get_recent_events(engine: CorrelationEngine, hours: int = 24) -> List[Dict]:
     """
     
     return engine.run_query(query, {"cutoff": cutoff_str})
+
+
+def get_all_events(engine: CorrelationEngine, limit: int = 500) -> List[Dict]:
+    """
+    Get all events regardless of timestamp.
+    
+    Args:
+        engine: CorrelationEngine instance
+        limit: Maximum number of events to return
+        
+    Returns:
+        List of event records with id, timestamp, lat, lon, location
+    """
+    query = """
+    MATCH (e:Event)
+    OPTIONAL MATCH (e)-[:OCCURRED_IN]->(loc:Location)
+    RETURN 
+        e.id AS id,
+        e.timestamp AS timestamp,
+        e.lat AS lat,
+        e.lon AS lon,
+        e.event_code AS event_code,
+        loc.name AS grid_location
+    ORDER BY e.timestamp DESC
+    LIMIT $limit
+    """
+    
+    return engine.run_query(query, {"limit": limit})
 
 
 def link_nearby_flights(engine: CorrelationEngine, event: Dict) -> Dict:
@@ -437,6 +466,12 @@ def main():
     2. For each event: spatial linking, narrative linking, scoring
     3. Write back scores and print summary table
     """
+    # Parse arguments
+    parser = argparse.ArgumentParser(description="Correlation Engine for Event Scoring")
+    parser.add_argument("--all", action="store_true", help="Process ALL events, not just last 24 hours")
+    parser.add_argument("--limit", type=int, default=500, help="Max events to process (default: 500)")
+    args = parser.parse_args()
+    
     print("=" * 80)
     print("🔬 CORRELATION ENGINE: Multi-Source Corroboration Scoring")
     print("   Project Sentinel - Intelligence Verification System")
@@ -448,12 +483,16 @@ def main():
     engine = CorrelationEngine(NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD)
     
     try:
-        # Get recent events
-        print(f"\n📊 Fetching events from last {EVENT_LOOKBACK_HOURS} hours...")
-        events = get_recent_events(engine, EVENT_LOOKBACK_HOURS)
+        # Get events based on mode
+        if args.all:
+            print(f"\n📊 Fetching ALL events (limit: {args.limit})...")
+            events = get_all_events(engine, args.limit)
+        else:
+            print(f"\n📊 Fetching events from last {EVENT_LOOKBACK_HOURS} hours...")
+            events = get_recent_events(engine, EVENT_LOOKBACK_HOURS)
         
         if not events:
-            print("   ⚠️  No recent events found in database")
+            print("   ⚠️  No events found in database")
             print("   Run the ETL first: python database/load_graph.py")
             return
         
