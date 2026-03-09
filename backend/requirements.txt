@@ -26,5 +26,10 @@ langchain-anthropic>=0.3.0  # Claude integration
 langgraph>=0.2.0         # Multi-agent graph workflows
 pydantic>=2.0.0          # Structured output validation
 
+# API Server
+fastapi>=0.109.0         # Modern async web framework
+uvicorn[standard]>=0.27.0 # ASGI server
+
 # JSON Processing
 python-dateutil>=2.8.2   # Date parsing and timezone handling
+

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Newsroom Debate - Test Results</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0f0f0f; 
+            color: #e0e0e0; 
+            padding: 40px;
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+        h1 { 
+            font-size: 2rem; 
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, #00d4ff, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .subtitle { color: #888; margin-bottom: 2rem; }
+        
+        .article-card {
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid #333;
+        }
+        .article-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .article-title { font-size: 1.2rem; font-weight: 600; }
+        .badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .badge-debate { background: #7c3aed; color: white; }
+        .badge-compare { background: #00d4ff; color: black; }
+        .meta { color: #888; font-size: 0.9rem; margin-bottom: 16px; }
+        
+        .agent-section {
+            background: #252525;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 16px;
+        }
+        .agent-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #00d4ff;
+        }
+        .claims-list { margin-left: 20px; }
+        .claims-list li { margin: 4px 0; }
+        .verified { color: #22c55e; }
+        .unverified { color: #f59e0b; }
+        
+        .verdict {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border-left: 4px solid #7c3aed;
+            padding: 16px;
+            margin-top: 16px;
+            border-radius: 0 8px 8px 0;
+        }
+        .rec-trust { border-left-color: #22c55e; }
+        .rec-caution { border-left-color: #f59e0b; }
+        .rec-wait { border-left-color: #3b82f6; }
+        .recommendation {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🗞️ Newsroom Debate System</h1>
+        <p class="subtitle">Test Results · Generated 2026-02-03 12:01</p>
+
+        <div class="article-card">
+            <div class="article-header">
+                <div class="article-title">📱 Iran warns of regional war if US attacks</div>
+                <span class="badge badge-debate">Full Debate</span>
+            </div>
+            <div class="meta">
+                Source: telegram_Middle_East_Spectator · Score: 55 · Status: Developing
+            </div>
+
+            <div class="agent-section">
+                <div class="agent-header">📝 Reporter</div>
+                <ul class="claims-list">
+                    <li>Iranian officials issued direct warning about regional war</li><li>Warning was specifically in response to potential US military action</li><li>Threat implies coordinated response from regional allies</li>
+                </ul>
+            </div>
+            
+            <div class="agent-section">
+                <div class="agent-header">✓ Fact-Checker</div>
+                <div class="verified"><strong>Verified:</strong></div>
+                <ul class="claims-list">
+                    <li>Iran has made similar warnings before (consistent messaging)</li><li>Ali Shamkhani is a real official in Iran's leadership</li>
+                </ul>
+                <div class="unverified"><strong>Unverified:</strong></div>
+                <ul class="claims-list">
+                    <li>Specific military preparations</li><li>Coordination with regional allies</li>
+                </ul>
+            </div>
+            
+            <div class="verdict rec-caution">
+                <div class="recommendation">
+                    ⚠️ 
+                    CAUTION
+                </div>
+                <p>This report accurately conveys Iranian official statements but should be viewed with caution. The core claim (Iran warning of regional war) is consistent with known Iranian messaging, but the specific threats and implied coordination remain unverified by independent sources.</p>
+            </div>
+
+        </div>
+
+        <div class="article-card">
+            <div class="article-header">
+                <div class="article-title">📰 Gaza's Rafah border crossing reopens for limited evacuations</div>
+                <span class="badge badge-debate">Full Debate</span>
+            </div>
+            <div class="meta">
+                Source: aljazeera_english · Score: 65 · Status: Developing
+            </div>
+
+            <div class="agent-section">
+                <div class="agent-header">📝 Reporter</div>
+                <ul class="claims-list">
+                    <li>Iranian officials issued direct warning about regional war</li><li>Warning was specifically in response to potential US military action</li><li>Threat implies coordinated response from regional allies</li>
+                </ul>
+            </div>
+            
+            <div class="agent-section">
+                <div class="agent-header">✓ Fact-Checker</div>
+                <div class="verified"><strong>Verified:</strong></div>
+                <ul class="claims-list">
+                    <li>Iran has made similar warnings before (consistent messaging)</li><li>Ali Shamkhani is a real official in Iran's leadership</li>
+                </ul>
+                <div class="unverified"><strong>Unverified:</strong></div>
+                <ul class="claims-list">
+                    <li>Specific military preparations</li><li>Coordination with regional allies</li>
+                </ul>
+            </div>
+            
+            <div class="verdict rec-caution">
+                <div class="recommendation">
+                    ⚠️ 
+                    CAUTION
+                </div>
+                <p>This report accurately conveys Iranian official statements but should be viewed with caution. The core claim (Iran warning of regional war) is consistent with known Iranian messaging, but the specific threats and implied coordination remain unverified by independent sources.</p>
+            </div>
+
+        </div>
+
+        <div class="article-card">
+            <div class="article-header">
+                <div class="article-title">📰 UN Security Council meets on Iran nuclear program</div>
+                <span class="badge badge-compare">Source Comparison</span>
+            </div>
+            <div class="meta">
+                Source: bbc_world · Score: 85 · Status: Verified
+            </div>
+
+            <div class="agent-section">
+                <div class="agent-header">🔄 Source Comparison</div>
+                <p><strong>All sources agree:</strong> UN Security Council held emergency session on Iran's nuclear program</p>
+                <br>
+                <p><strong>Potential differences:</strong></p>
+                <ul class="claims-list">
+                    <li>Western sources emphasize Iranian non-compliance</li><li>Regional sources may focus on diplomatic solutions</li><li>Russian/Chinese sources likely highlight Western aggression</li>
+                </ul>
+            </div>
+            
+            <div class="verdict rec-trust">
+                <div class="recommendation">💡 Reader Note</div>
+                <p>Core facts are solid. Watch for diverging interpretations on who is at fault.</p>
+            </div>
+
+        </div>
+
+    </div>
+</body>
+</html>
