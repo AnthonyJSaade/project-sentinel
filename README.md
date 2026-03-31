@@ -411,12 +411,5 @@ For high-confidence stories covered by multiple sources, the system highlights:
 (:Flight)-[:PATROLLING]->(:Location)
 ```
 
----
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-
----
 
 </p>
